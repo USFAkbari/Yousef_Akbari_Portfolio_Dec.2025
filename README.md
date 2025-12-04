@@ -44,6 +44,8 @@ A clean, minimalist, and accessible academic portfolio website built with [Gatsb
     ```
     The site will be running at `http://localhost:8000`.
 
+    To stop the server, press `Ctrl + C` in the terminal.
+
 ## 🏗️ Building for Production
 
 To create an optimized production build:

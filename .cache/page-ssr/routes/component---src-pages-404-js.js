@@ -39540,7 +39540,12 @@ const Layout = ({
   const {
     0: themeMode,
     1: setThemeMode
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('dark');
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'dark';
+    }
+    return 'dark';
+  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (isLoading) {
       return;
@@ -39557,11 +39562,8 @@ const Layout = ({
     }
   }, [isLoading, location.hash]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // Check local storage for theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setThemeMode(savedTheme);
-    }
+    const timeout = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timeout);
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     document.body.className = themeMode === 'light' ? 'light-mode' : 'dark-mode';
@@ -39579,10 +39581,14 @@ const Layout = ({
     href: "#content"
   }, "Skip to Content"), isLoading && isHome ?
   /*#__PURE__*/
-  // Placeholder for Loader, for now just render children immediately or simple text
+  // Placeholder for Loader
   react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      display: 'none'
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      color: 'var(--accent)'
     }
   }, "Loading...") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(StyledContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_nav__WEBPACK_IMPORTED_MODULE_2__["default"], {
     isHome: isHome,
