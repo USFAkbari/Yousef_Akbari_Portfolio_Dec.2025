@@ -56,6 +56,75 @@ npm run build
 
 The generated files will be in the `public` directory, ready to be deployed to GitHub Pages, Netlify, or Vercel.
 
+## 🐳 Deploy with Docker
+
+This project is fully Dockerized and ready for production deployment. The Docker setup includes multi-stage builds, security best practices, and optimized configurations.
+
+### Prerequisites
+
+-   Docker (v20.10 or later)
+-   Docker Compose (v2.0 or later)
+
+### Quick Start with Docker Compose
+
+1.  **Build and start the container**:
+    ```bash
+    docker-compose up -d
+    ```
+
+2.  **View logs**:
+    ```bash
+    docker-compose logs -f
+    ```
+
+3.  **Stop the container**:
+    ```bash
+    docker-compose down
+    ```
+
+4.  **Rebuild after changes**:
+    ```bash
+    docker-compose up -d --build
+    ```
+
+The site will be available at `http://localhost:3000`.
+
+### Deploy with Docker CLI
+
+1.  **Build the Docker image**:
+    ```bash
+    docker build -t academic-portfolio:latest .
+    ```
+
+2.  **Run the container**:
+    ```bash
+    docker run -d \
+      --name academic-portfolio \
+      -p 3000:3000 \
+      --restart unless-stopped \
+      academic-portfolio:latest
+    ```
+
+3.  **View logs**:
+    ```bash
+    docker logs -f academic-portfolio
+    ```
+
+4.  **Stop and remove the container**:
+    ```bash
+    docker stop academic-portfolio
+    docker rm academic-portfolio
+    ```
+
+### Docker Features
+
+-   **Multi-stage build**: Optimized image size with separate build and production stages
+-   **Security**: Runs as non-root user (`appuser`)
+-   **Health checks**: Automatic health monitoring
+-   **Log rotation**: Prevents disk exhaustion (max 10MB per file, 3 files)
+-   **Auto-restart**: Container restarts automatically unless stopped
+-   **Production-ready**: Optimized for production deployment
+
 ## 📂 Project Structure
 
 ```
